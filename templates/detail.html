@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ post.title }} - VOIZON.BLOG</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;500;600;700;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased relative">
+
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="{% url 'home' %}" class="text-xl font-bold tracking-tight text-slate-900">
+                VOIZON<span class="text-emerald-600">.BLOG</span>
+            </a>
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-600">
+                <a href="{% url 'home' %}" class="hover:text-emerald-600 transition">Home</a>
+                <a href="{% url 'about' %}" class="hover:text-emerald-600 transition">About</a>
+                <a href="{% url 'contact' %}" class="hover:text-emerald-600 transition">Contact</a>
+            </nav>
+            <button class="bg-slate-900 text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-slate-800 transition shadow-sm">
+                Subscribe
+            </button>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-6 py-12">
+
+        <a href="{% url 'home' %}" class="inline-flex items-center text-sm font-semibold text-slate-600 hover:text-emerald-600 transition mb-8 group">
+            <span class="mr-2 group-hover:-translate-x-1 transition-transform">←</span> Back to Articles
+        </a>
+
+        <div class="space-y-4 mb-8">
+            <span class="inline-block text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full {% if post.category|lower == 'information' %}bg-blue-50 text-blue-600 border border-blue-200{% else %}bg-emerald-50 text-emerald-600 border border-emerald-200{% endif %}">
+                {{ post.category }}
+            </span>
+            <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight">
+                {{ post.title }}
+            </h1>
+            <div class="flex items-center text-sm text-slate-500 pt-2 border-t border-slate-100">
+                <span>Published on <strong>{{ post.created_at|date:"F d, Y" }}</strong></span>
+                <span class="mx-3">•</span>
+                <span>By VOIZON Team</span>
+            </div>
+        </div>
+
+        <div class="relative overflow-hidden rounded-[32px] shadow-xl bg-slate-900 aspect-[16/9] mb-12 border border-slate-200">
+            <img src="{{ post.image_url }}" class="w-full h-full object-cover" alt="{{ post.title }}">
+        </div>
+
+        <article class="prose prose-slate max-w-none text-slate-700 text-base md:text-lg leading-relaxed space-y-6 whitespace-pre-line">
+            {{ post.content }}
+        </article>
+
+        <div class="mt-16 pt-8 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-500">
+            <p>Thank you for reading VOIZON.BLOG! Stay tuned for more authentic updates.</p>
+            <a href="{% url 'home' %}" class="bg-slate-900 text-white font-medium px-5 py-2.5 rounded-full hover:bg-slate-800 transition">
+                Read More Blogs
+            </a>
+        </div>
+
+    </main>
+
+    <footer class="bg-slate-950 text-slate-400 py-8 text-center text-sm border-t border-slate-900 mt-20">
+        <p>&copy; 2026 VOIZON Digital. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
