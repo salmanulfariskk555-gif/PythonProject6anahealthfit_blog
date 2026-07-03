@@ -1,6 +1,6 @@
 from pathlib import Path
 import os
-import dj_database_url # Render-ൽ ഡാറ്റാബേസ് കണക്ട് ചെയ്യാൻ ഇത് അത്യാവശ്യമാണ്
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -11,7 +11,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-(zwcilb+l_5z2!*iqt9$d
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['*'] # Render-ൽ ഹോസ്റ്റ് ചെയ്യാൻ ഇത് അത്യാവശ്യമാണ്
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 INSTALLED_APPS = [
@@ -26,7 +26,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', # സ്റ്റാറ്റിക് ഫയൽ എറർ മാറാൻ ഇത് സഹായിക്കും
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -57,7 +57,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 DATABASES = {
     'default': dj_database_url.config(
-        default='sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3'),
+        default='postgresql://neondb_owner:npg_dvbAEG51snZX@ep-rough-bonus-aiz15kdt.c-4.us-east-1.aws.neon.tech/neondb?sslmode=require',
         conn_max_age=600
     )
 }
@@ -66,7 +66,6 @@ DATABASES = {
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [BASE_DIR / 'static']
-# സ്റ്റാറ്റിക് ഫയലുകൾ കൃത്യമായി കാണിക്കാൻ:
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
