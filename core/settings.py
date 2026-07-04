@@ -69,3 +69,16 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+import os
+from django.contrib.auth.models import User
+
+# ആപ്പ് റൺ ആകുമ്പോൾ തന്നെ അഡ്മിൻ യൂസർ ഉണ്ടോ എന്ന് പരിശോധിക്കുന്നു
+username = os.environ.get('DJANGO_SUPERUSER_USERNAME', 'admin')
+email = os.environ.get('DJANGO_SUPERUSER_EMAIL', 'admin@example.com')
+password = os.environ.get('DJANGO_SUPERUSER_PASSWORD', 'admin123')
+
+try:
+    if not User.objects.filter(username=username).exists():
+        User.objects.create_superuser(username=username, email=email, password=password)
+except:
+    pass
